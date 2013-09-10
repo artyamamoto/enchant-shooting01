@@ -11,7 +11,6 @@ var Player = Class.create(Sprite , {
 		this.vy = 0;
 		//this.ax = 0;
 		//this.ay = 0;
-		console.log(this);
 		
 		this.is_start = 0;
 		this.shooting = false;
@@ -79,6 +78,8 @@ var Player = Class.create(Sprite , {
 	} ,
 	"damage" : function() {
 		new Explosion(this.x, this.y);
+		configs.scenes.main.explodeEnemies();
+		
 		this.life --;
 		if (this.life <= 0) {
 			configs.scenes.main.setGameover();

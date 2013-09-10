@@ -24,6 +24,9 @@ Enemy01.addGroup = function() {
 	var x = rand( 32 , game.width - 64);
 	var loop = 5;
 	var set = function() {
+		if (configs.scenes.main.player.is_start) 
+			return;
+		
 		new Enemy01(x, -16);
 		if (loop-- > 0)
 			setTimeout(set , 2000);
