@@ -4,21 +4,35 @@ var Enemy01 = Class.create(BaseEnemy, {
 	
 	"initialize" : function(x,y) {
 		BaseEnemy.call(this, x, y);
-		
-		var vx = ((x > game.width / 2) ? -2 : 2);
+		var self = this;
+		var x2 = ((x > game.width / 2) ? -24 : 24);
 		this.tl
-			.move( 0,  4 , function() { return (this.y > game.height / 3); })
-			.move( vx, -2 , function() { return (this.y < game.height / 4); })
-			.move( 0 , 6 );	
+			.moveTo( x,  game.height / 3 , 60, enchant.Easing.EXPO_EASEOUT)
+			.delay(10)
+			.then(function() {
+				self.shot();
+			})
+			.delay(15)
+			.then(function() {
+				self.shot();
+			})
+			.moveBy( x2, -1 * game.height / 12 , 120, enchant.Easing.EXPO_EASEOUT)
+			.delay(10)
+			.moveTo( x + x2 , game.height + 64 , 60 );	
 	} , 
 	"tick" : function() {
 		BaseEnemy.prototype.tick.call(this);
-		if (game.frame % 36 == rand(0,35)) {
+		/* if (game.frame % 36 == rand(0,35)) {
 			var x = this.x + (this.width / 2) - 8;
 			var y = this.y + (this.height / 2) - 8;
-			var shot = new EnemyShot(x, y);
-		}
-	}  
+			var shot = new EnemyShot(x, y, 1);
+		} */
+	} , 
+	"shot" : function() {
+		var x = this.x + (this.width / 2) - 8;
+		var y = this.y + (this.height / 2) - 8;
+		var shot = new EnemyShot(x, y, 1.5);
+	}
 });
 Enemy01.addGroup = function() {
 	var x = rand( 32 , game.width - 64);

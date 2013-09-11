@@ -47,6 +47,7 @@ var MainScene = Class.create(BaseScene, {
 			
 		this.initStart();	
 		this.addEventListener('enterframe' , this.tick);
+		Sound.play('STAR1.mp3');
 	} ,
 	"setGameover" : function() {
 		this.status = configs.GAME_STATUS.GAMEOVER;
@@ -126,7 +127,10 @@ var MainScene = Class.create(BaseScene, {
 		if (this.player.is_start) 
 			return;
 		//if (this.enemies.childNodes.length < 2) {
-		Enemy01.addGroup();
+		if (rand(0,10) < 2) 
+			var tmp = new Enemy02();
+		else 
+			Enemy01.addGroup();
 		//}
 	},
 	"explodeEnemies" : function() {
@@ -136,9 +140,10 @@ var MainScene = Class.create(BaseScene, {
 			enemies[i].die();
 		}
 		for (var i=shots.length-1;i>=0;i--) {
-			new Explosion( shots[i].x, shots[i].y );
+			new Explosion( shots[i].x, shots[i].y , false);
 			shots[i].die();
 		}
+		Sound.play('bomb.wav', true);
 	},
 	"replaceScene" : function() {
 		this.game.replaceScene(this);

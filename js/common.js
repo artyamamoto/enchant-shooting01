@@ -28,6 +28,12 @@ function intval(s,base,default_val) {
 	} 
 	return 0;
 }
+function is_function(v) {
+	var r = false;
+	if (v && typeof v == 'function')
+		r = true;
+	return r;
+}
 
 var async = {};
 async.parallel = function(list,oncomplete) {

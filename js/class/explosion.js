@@ -1,7 +1,7 @@
 
 
 var Explosion = Class.create(Sprite ,{
-	"initialize" : function (x,y) {
+	"initialize" : function (x,y,sound) {
 		Sprite.call(this,24,24);
 		this.image = game.assets['common.png'];
 		this.frame = 10;
@@ -11,7 +11,7 @@ var Explosion = Class.create(Sprite ,{
 		this.scaleY = 2;
 		
 		this.addEventListener('enterframe', this.tick);
-		this.add();
+		this.add(sound);
 	} , 
 	"tick" : function() {
 		this.frame++;
@@ -19,8 +19,11 @@ var Explosion = Class.create(Sprite ,{
 			this.die();
 		}
 	} , 
-	"add" : function() {
+	"add" : function(sound) {
+		if (sound !== false)
+			sound = true;
 		configs.scenes.main.effects.addChild(this);
+		Sound.play('bomb.wav',sound);
 	},
 	"die" : function() {
 		this.removeEventListener('enterframe', this.tick);

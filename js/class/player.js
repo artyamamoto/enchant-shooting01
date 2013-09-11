@@ -39,7 +39,7 @@ var Player = Class.create(Sprite , {
 		this.y = this._range( this.y + this.vy , 0, game.height - this.height );
 		
 		if (this.shooting) {
-			if (game.frame % 3 == 0) {
+			if (game.frame % 7 == 0) {
 				this.addShot();
 			}
 		}

@@ -3,15 +3,18 @@ var EnemyShot = Class.create(Shot, {
 	"asset" : "shots.png",
 	"shotframe" : 1 , 
 	
-	"initialize" : function(x,y) {
+	"initialize" : function(x,y,velocity,diff) {
+		var v = velocity || 1;
+		var diff = diff || {};
+		
 		var player = configs.scenes.main.player;
-		var vx = (player.x - x);
-		var vy = (player.y - y);
+		vx = (player.x - x) + (diff.x || 0);
+		vy = (player.y - y) + (diff.y || 0);
 		var len = (vx * vx + vy * vy);
 		if (len != 0) {
 			len = Math.sqrt(len);
-			vx = Math.min( 3, vx / len * 3);
-			vy = Math.min( 3, vy / len * 3);
+			vx = Math.min( v, vx / len * v);
+			vy = Math.min( v, vy / len * v);
 		}
 		Shot.call(this,x,y,vx,vy);
 	},
