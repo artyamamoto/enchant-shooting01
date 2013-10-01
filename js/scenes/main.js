@@ -63,6 +63,8 @@ var MainScene = Class.create(BaseScene, {
 		img.x = (game.width - img.width) / 2;
 		img.y = (game.height - img.height) / 2;
 		this.addChild(img);
+		
+		game.end(this.score , 'あなたのスコアは' +this.score+ 'でした。');
 		//} , 2000);
 	}	,	
 	"initStart" : function() {
@@ -70,7 +72,8 @@ var MainScene = Class.create(BaseScene, {
 		this.status = configs.GAME_STATUS.START;
 		this.player.initStart(function() {
 			self.status = configs.GAME_STATUS.GAME;
-		});	
+		});
+		this.score = 0;	
 	}, 
 	"tick" : function() {
 		if (this.status == configs.GAME_STATUS.GAMEOVER)
@@ -101,6 +104,8 @@ var MainScene = Class.create(BaseScene, {
 				if (enemy.intersect(shot)) {
 					shot.die();
 					enemy.damage();
+					if (enemy.hp <= 0 && enemy.score > 0) 
+						this.score += enemy.score;
 				}
 			}
 			if (! this.player.muteki) {

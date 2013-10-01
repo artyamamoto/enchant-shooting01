@@ -13,6 +13,7 @@ var BaseEnemy = Class.create(BaseSprite, {
 		this.vx = vx || 0;
 		this.vy = vy || 0;
 		this.hp = 1;		
+		this.score = 1;
 		
 		//if (angle)
 		//	this.rotate(angle);
